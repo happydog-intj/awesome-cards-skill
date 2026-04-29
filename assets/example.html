@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>hucre card</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 32px;
+    font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 12px;
+    width: 600px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    overflow: hidden;
+  }
+
+  /* Header */
+  .card-header {
+    background: linear-gradient(135deg, #1456F0 0%, #1890FF 100%);
+    padding: 22px 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .card-header-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+  .card-header-text h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.3px;
+  }
+  .card-header-text p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 3px;
+  }
+
+  /* Body */
+  .card-body {
+    padding: 20px 24px;
+  }
+
+  /* Repo link row */
+  .repo-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f7f8fc;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    border: 1px solid #e4e8f0;
+  }
+  .repo-row .icon { font-size: 15px; }
+  .repo-row a {
+    font-size: 13.5px;
+    color: #1456F0;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* Stats row */
+  .stats-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .stat-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #f0f5ff;
+    border: 1px solid #d0e1fd;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12.5px;
+    color: #2b4ea8;
+    font-weight: 500;
+  }
+  .stat-badge.green {
+    background: #f0faf4;
+    border-color: #b7e5c8;
+    color: #1a7a40;
+  }
+  .stat-badge.orange {
+    background: #fff8f0;
+    border-color: #ffd6a0;
+    color: #b05f00;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 18px;
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1456F0;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e8edf5;
+  }
+
+  /* Description block */
+  .desc-block {
+    background: #f7f8fc;
+    border-left: 3px solid #1456F0;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 14px;
+    font-size: 13.5px;
+    color: #333;
+    line-height: 1.75;
+  }
+  .desc-block .keyword {
+    color: #1456F0;
+    font-weight: 600;
+  }
+  .desc-block .note {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #888;
+  }
+
+  /* Feature list */
+  .feature-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    background: #f7f8fc;
+    border-radius: 8px;
+    padding: 10px 12px;
+    border: 1px solid #eaecf3;
+  }
+  .feature-item .fi-icon {
+    font-size: 16px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .feature-item .fi-text {
+    font-size: 12.5px;
+    color: #333;
+    line-height: 1.55;
+  }
+  .feature-item .fi-text strong {
+    display: block;
+    color: #222;
+    font-weight: 600;
+    margin-bottom: 2px;
+    font-size: 13px;
+  }
+
+  /* Code block */
+  .code-section {
+    margin-bottom: 18px;
+  }
+  .code-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 0;
+  }
+  .code-tab {
+    font-size: 11.5px;
+    padding: 5px 14px;
+    background: #2d2d2d;
+    color: #aaa;
+    border-radius: 6px 6px 0 0;
+    margin-right: 2px;
+    font-family: monospace;
+  }
+  .code-tab.active {
+    background: #1e1e2e;
+    color: #cdd6f4;
+  }
+  .code-block {
+    background: #1e1e2e;
+    border-radius: 0 8px 8px 8px;
+    padding: 14px 16px;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 12.5px;
+    line-height: 1.7;
+    overflow-x: auto;
+  }
+  .code-block .cm { color: #6c7086; }
+  .code-block .kw { color: #cba6f7; }
+  .code-block .fn { color: #89b4fa; }
+  .code-block .st { color: #a6e3a1; }
+  .code-block .va { color: #cdd6f4; }
+  .code-block .nu { color: #fab387; }
+  .code-block .pm { color: #f38ba8; }
+  .code-block .ty { color: #f9e2af; }
+
+  /* Install block */
+  .install-block {
+    background: #0d1117;
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .install-block .prompt {
+    color: #58a6ff;
+    font-family: monospace;
+    font-size: 13px;
+  }
+  .install-block .cmd {
+    color: #e6edf3;
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: #eaecf3;
+    margin: 4px 0 18px;
+  }
+
+  /* Footer */
+  .card-footer {
+    background: #f7f8fc;
+    border-top: 1px solid #eaecf3;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-footer .footer-left {
+    font-size: 11.5px;
+    color: #999;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .card-footer .footer-right {
+    font-size: 11.5px;
+    color: #1456F0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Header -->
+  <div class="card-header">
+    <div class="card-header-icon">📊</div>
+    <div class="card-header-text">
+      <h1>hucre — GitHub 库简介</h1>
+      <p>零依赖 TypeScript 电子表格引擎</p>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="card-body">
+
+    <!-- Repo link -->
+    <div class="repo-row">
+      <span class="icon">🔗</span>
+      <a href="#">productdevbook / hucre</a>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-badge">⭐ 1.2k Stars</div>
+      <div class="stat-badge green">🍴 26 Forks</div>
+      <div class="stat-badge orange">🕐 更新于 2026-04-25</div>
+    </div>
+
+    <!-- What is it -->
+    <div class="section">
+      <div class="section-title">🧩 是什么</div>
+      <div class="desc-block">
+        <span class="keyword">hucre</span> 是一个<span class="keyword">零依赖</span>的电子表格引擎，用纯 <span class="keyword">TypeScript</span> 编写，可运行于任何 JS 环境（浏览器、Node.js、Edge Runtime、Web Worker 等）。
+        <div class="note">💡 "hucre" 是土耳其语中 "单元格" 的意思，即 Excel 里的 cell。</div>
+      </div>
+    </div>
+
+    <!-- Install -->
+    <div class="section">
+      <div class="section-title">⚡ 快速安装</div>
+      <div class="install-block">
+        <span class="prompt">$</span>
+        <span class="cmd">npm install hucre</span>
+      </div>
+    </div>
+
+    <!-- Code example -->
+    <div class="section code-section">
+      <div class="section-title">💻 示例代码</div>
+      <div class="code-tabs">
+        <div class="code-tab active">TypeScript</div>
+      </div>
+      <div class="code-block">
+        <span class="kw">import</span> <span class="va">{ readXlsx, writeXlsx }</span> <span class="kw">from</span> <span class="st">"hucre"</span>;<br><br>
+        <span class="cm">// 读取 XLSX 文件</span><br>
+        <span class="kw">const</span> <span class="va">workbook</span> = <span class="kw">await</span> <span class="fn">readXlsx</span>(<span class="va">buffer</span>);<br>
+        <span class="va">console</span>.<span class="fn">log</span>(<span class="va">workbook</span>.<span class="va">sheets</span>[<span class="nu">0</span>].<span class="va">rows</span>);
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="section">
+      <div class="section-title">🚀 核心功能</div>
+      <div class="feature-list">
+        <div class="feature-item">
+          <span class="fi-icon">📭</span>
+          <div class="fi-text">
+            <strong>零依赖</strong>
+            纯 TypeScript，不引入任何第三方包
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="fi-icon">🌐</span>
+          <div class="fi-text">
+            <strong>全平台运行</strong>
+            浏览器 / Node.js / Edge / Worker
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="fi-icon">📖</span>
+          <div class="fi-text">
+            <strong>读写 XLSX</strong>
+            支持 readXlsx / writeXlsx API
+          </div>
+        </div>
+        <div class="feature-item">
+          <span class="fi-icon">⚡</span>
+          <div class="fi-text">
+            <strong>轻量高效</strong>
+            专注核心引擎，体积极小
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="card-footer">
+    <div class="footer-left">🤖 Hermes · AI 助手整理</div>
+    <div class="footer-right">github.com/productdevbook/hucre →</div>
+  </div>
+
+</div>
+
+</body>
+</html>
