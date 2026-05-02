@@ -37,6 +37,17 @@ version: "2.2.0"
 
 从内容提取标题或核心思想作为 `{name}`（中文直接用，去标点，≤ 20 字符）。
 
+### Logo
+
+模板中 `{{LOGO}}` 变量统一从以下路径读取 base64 data URI：
+
+```python
+with open("/Users/a10093140/Documents/Github/feishu-style-card-image/assets/logo_base64.txt") as f:
+    logo_uri = f.read().strip()
+```
+
+Footer 署名为 **AI炼丹师**（已替换模板中原有的「李继刚」）。
+
 ### 截图工具
 
 ```bash
@@ -51,7 +62,7 @@ npm install playwright && npx playwright install chromium
 
 ### Footer
 
-- 左侧：logo + 李继刚（已硬编码在模板中）
+- 左侧：logo + AI炼丹师（已硬编码在模板中）
 - 右侧：内容来源（可选）——有明确来源时显示（如作者名、arxiv ID、网站名等），无来源时留空。使用 `{{SOURCE_LINE}}` 变量：有来源时填 `<span class="info-source">来源文字</span>`，否则空字符串。适用于 `-l`、`-i`、`-v`、`-c`、`-w` 模具（`-m` 多卡无 footer，不适用）。
 
 ### 交付
